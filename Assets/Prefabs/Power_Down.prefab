@@ -107,7 +107,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1486516450483528664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af47a372c9832f40b621fa94958e19e, type: 3}
+  m_Script: {fileID: 11500000, guid: 752fbb437b678b04ea168fe43bb9714b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _deleteDistance: 10
+  _sound: {fileID: 8300000, guid: 65f2e000a89492843b43a88fa34937c2, type: 3}
+  _downSpeed: 500

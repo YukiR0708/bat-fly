@@ -108,7 +108,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6702710740877592850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af47a372c9832f40b621fa94958e19e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0050c9455fee4ef44bf7448dfc9a41ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _deleteDistance: 10
+  _sound: {fileID: 8300000, guid: 930ebbc7f5d62db41985630e8e42e542, type: 3}
+  _score: 100

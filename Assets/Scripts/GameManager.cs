@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,42 +7,107 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField, Header("TimeText‚ÌƒIƒuƒWƒFƒNƒg‚ğƒAƒTƒCƒ“‚·‚é")] GameObject _timeText;
+    [SerializeField, Header("TimeTextã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚µã‚¤ãƒ³ã™ã‚‹")] GameObject _timeText;
     [SerializeField] GameObject _player;
-    [Tooltip("ƒg[ƒ^ƒ‹§ŒÀŠÔ")] float totalTime;
-    [Header("§ŒÀŠÔi•ªj"), SerializeField] int _minute;
-    [Header("§ŒÀŠÔi•bj"), SerializeField] float _seconds;
-    [Tooltip("‘O‰ñUpdate‚Ì•b”")] float _oldSeconds;
-    [SerializeField, Header("c‚èŠÔ")] Text _timerText;
+    [Tooltip("ãƒˆãƒ¼ã‚¿ãƒ«åˆ¶é™æ™‚é–“")] float totalTime;
+    [Header("åˆ¶é™æ™‚é–“ï¼ˆåˆ†ï¼‰"), SerializeField] int _minute;
+    [Header("åˆ¶é™æ™‚é–“ï¼ˆç§’ï¼‰"), SerializeField] float _seconds;
+    [Tooltip("å‰å›Updateæ™‚ã®ç§’æ•°")] float _oldSeconds;
+    [SerializeField, Header("æ®‹ã‚Šæ™‚é–“")] Text _timerText;
     private PlayerController _playerControllerScript;
-
-
+    [SerializeField, Header("ScoreTextã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚µã‚¤ãƒ³ã™ã‚‹")] GameObject _scoreText;
+    [SerializeField, Header("LifeTextã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚µã‚¤ãƒ³ã™ã‚‹")] GameObject _lifeText;
+    [SerializeField, Header("ç¾åœ¨ã®æ®‹åŸº")] private int _life;
+    [Header("æ®‹åŸºã®ä¸Šé™")] int _maxLife = 3;
+    [Tooltip("åˆæœŸã‚¹ã‚³ã‚¢")] int _score = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         _playerControllerScript = _player.GetComponent<PlayerController>();
+        _life = _maxLife;
+        SetLifeText(_life);
     }
+
+    /// <summary>
+    /// ã‚¹ã‚³ã‚¢ã‚’åŠ ç®—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    /// </summary>
+
+    public void AddScore(int score)
+    {
+        _score += score;
+        _scoreText.GetComponent<Text>().text = "Score:" + _score.ToString("");
+    }
+
+    /// <summary>
+    /// æ®‹åŸºã‚’å¢—åŠ ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    /// </summary>
+    public void AddLife(int recoverLife)
+    {
+        if (_life < _maxLife)
+        {
+            _life += recoverLife;
+            SetLifeText(_life);
+        }
+    }
+
+    /// <summary>
+    /// æ®‹åŸºã‚’æ¸›å°‘ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    /// </summary>
+    public void DecreaseLife(int decreaseLife)
+    {
+        if (0 < _life)
+        {
+            _life -= decreaseLife;
+            SetLifeText(_life);
+        }
+    }
+
+
+    /// <summary>
+    /// æ®‹åŸºæ•°ã«å¿œã˜ã¦UIã®ãƒãƒ¼ãƒˆã‚’å¢—æ¸›ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    /// </summary>
+    /// 
+    private void SetLifeText(int life)
+    {
+        string lifeHeart = ""; //æ®‹åŸºã®stringå‹â™¥ãƒ†ã‚­ã‚¹ãƒˆ
+
+        if (life == 1)
+        {
+            lifeHeart = "â™¥";
+        }
+        else if (life == 2)
+        {
+            lifeHeart = "â™¥â™¥";
+        }
+        else if (life == 3)
+        {
+            lifeHeart = "â™¥â™¥â™¥";
+        }
+
+        _lifeText.GetComponent<Text>().text = $"Life:{lifeHeart}";
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        totalTime = _minute * 60 + _seconds;  //@ˆê’UƒCƒ“ƒXƒyƒNƒ^[‚©‚çó‚¯æ‚Á‚½ƒg[ƒ^ƒ‹‚Ì§ŒÀŠÔi•bj‚ğŒvZG
+        totalTime = _minute * 60 + _seconds;  //ã€€ä¸€æ—¦ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰å—ã‘å–ã£ãŸãƒˆãƒ¼ã‚¿ãƒ«ã®åˆ¶é™æ™‚é–“ï¼ˆç§’ï¼‰ã‚’è¨ˆç®—ï¼›
 
         if (totalTime > 0f)
         {
-            totalTime -= Time.deltaTime;   //ƒJƒEƒ“ƒgƒ_ƒEƒ“‚·‚é
+            totalTime -= Time.deltaTime;   //ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã™ã‚‹
         }
 
-        if (_oldSeconds >= 0f && totalTime <= 0f || _playerControllerScript.life == 0)   //‘O‚ÌUpdate‚Ìc‚èŠÔ‚ª0ˆÈã‚©‚Â@¡‰ñ‚ÌUpdate‚Ìc‚èŠÔ‚ª0–¢–‚Ì‚Æ‚«‚¾‚¯
+        if (_oldSeconds >= 0f && totalTime <= 0f || _life == 0)   //å‰ã®Updateã®æ®‹ã‚Šæ™‚é–“ãŒ0ä»¥ä¸Šã‹ã¤ã€€ä»Šå›ã®Updateã®æ®‹ã‚Šæ™‚é–“ãŒ0æœªæº€ã®ã¨ãã ã‘
         {
             SceneManager.LoadScene("ResultScene");
         }
 
-        _minute = (int)totalTime / 60;   //@Äİ’è
+        _minute = (int)totalTime / 60;   //ã€€å†è¨­å®š
         _seconds = totalTime - _minute * 60;
 
-        if ((int)_seconds != (int)_oldSeconds)    //@ƒ^ƒCƒ}[•\¦—pUIƒeƒLƒXƒg‚Éc‚èŠÔ‚ğ•\¦‚·‚é
+        if ((int)_seconds != (int)_oldSeconds)    //ã€€ã‚¿ã‚¤ãƒãƒ¼è¡¨ç¤ºç”¨UIãƒ†ã‚­ã‚¹ãƒˆã«æ®‹ã‚Šæ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹
         {
             _timerText.text = $"Time:{_minute:0}:{(int)_seconds:00}";
         }

@@ -1073,7 +1073,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: Score:000
 --- !u!222 &966355212
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2168,16 +2168,8 @@ MonoBehaviour:
   _upLimit: 4
   _moveForceR: 1500
   _mainCamera: {fileID: 1038976106}
-  _coinSE: {fileID: 8300000, guid: 4742cfc0d421d71458307893a88f11b3, type: 3}
-  _heartSE: {fileID: 8300000, guid: cb2320b8d2606464daa4b894ee6cc3ee, type: 3}
   _boundSE: {fileID: 8300000, guid: fbd649fe87904a9439269f61d2666e97, type: 3}
   _bound: 1.5
-  _scoreText: {fileID: 966355209}
-  _lifeText: {fileID: 1151794896}
-  _speedUpSE: {fileID: 8300000, guid: 94291af5b254d89419c81d4879a6c3b7, type: 3}
-  _speedDownSE: {fileID: 8300000, guid: 65f2e000a89492843b43a88fa34937c2, type: 3}
-  life: 0
-  _crossSE: {fileID: 8300000, guid: 0b895a1683a72dd47b433bfec8a7eb56, type: 3}
 --- !u!95 &1691224939
 Animator:
   serializedVersion: 4
@@ -2487,6 +2479,9 @@ MonoBehaviour:
   _minute: 2
   _seconds: 0
   _timerText: {fileID: 516792520}
+  _scoreText: {fileID: 966355209}
+  _lifeText: {fileID: 1151794896}
+  _life: 0
 --- !u!4 &1832334550
 Transform:
   m_ObjectHideFlags: 0
