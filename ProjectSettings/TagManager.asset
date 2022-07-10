@@ -10,6 +10,8 @@ TagManager:
   - Fire
   - Ceiling
   - SpeedUp
+  - SpeedDown
+  - Cross
   layers:
   - Default
   - TransparentFX

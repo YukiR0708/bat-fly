@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,27 +7,31 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody _playerRb;
-    [SerializeField, Header("ã‰ºˆÚ“®‘¬“x")] float _moveForceV;
-    [Tooltip("ƒQ[ƒ€’†‚©‚Ç‚¤‚©")] public bool isGame;
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌyÀ•W‚ª\•ª‚É¬‚³‚¢‚©‚Ç‚¤‚©")] bool isLowEnough;
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌyÀ•W")] float _playePositionY;
-    [SerializeField, Header("ƒvƒŒƒCƒ„[‚Ìy²ˆÚ“®ãŒÀ")] float _upLimit;
-    [SerializeField, Header("‹­§ƒXƒNƒ[ƒ‹‘¬“x")] float _moveForceR;
-    [SerializeField, Header("ƒƒCƒ“ƒJƒƒ‰")] GameObject _mainCamera;
-    [Tooltip("ƒvƒŒƒCƒ„[‚æ‚èè‘O‚É”z’u‚·‚é")] float _zAdjust = -3.0f;  //Z²’²®
-    [Tooltip("ƒJƒƒ‰‚ÌYÀ•W")] float _yPosition = 1.8f;  //Z²’²®
-    float _xAdjust = 2.0f;  //X²’²®
-    //[SerializeField, Header("ƒRƒCƒ“Šl“¾‚ÌƒGƒtƒFƒNƒg")] ParticleSystem _coinParticle;
-    //[SerializeField, Header("ƒn[ƒgŠl“¾‚ÌƒGƒtƒFƒNƒg")] ParticleSystem _heartParticle;
+    [SerializeField, Header("ä¸Šä¸‹ç§»å‹•é€Ÿåº¦")] float _moveForceV;
+    [Tooltip("ã‚²ãƒ¼ãƒ ä¸­ã‹ã©ã†ã‹")] public bool isGame;
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®yåº§æ¨™ãŒååˆ†ã«å°ã•ã„ã‹ã©ã†ã‹")] bool isLowEnough;
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®yåº§æ¨™")] float _playePositionY;
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®yè»¸ç§»å‹•ä¸Šé™")] float _upLimit;
+    [SerializeField, Header("å¼·åˆ¶ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦")] float _moveForceR;
+    [SerializeField, Header("ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©")] GameObject _mainCamera;
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ˆã‚Šæ‰‹å‰ã«é…ç½®ã™ã‚‹")] float _zAdjust = -3.0f;  //Zè»¸èª¿æ•´
+    [Tooltip("ã‚«ãƒ¡ãƒ©ã®Yåº§æ¨™")] float _yPosition = 1.8f;  //Zè»¸èª¿æ•´
+    float _xAdjust = 2.0f;  //Xè»¸èª¿æ•´
+    //[SerializeField, Header("ã‚³ã‚¤ãƒ³ç²å¾—æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")] ParticleSystem _coinParticle;
+    //[SerializeField, Header("ãƒãƒ¼ãƒˆç²å¾—æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")] ParticleSystem _heartParticle;
     private AudioSource _audioSource;
-    [SerializeField, Header("ƒRƒCƒ“Šl“¾‚ÌSE")] AudioClip _coinSE;
-    [SerializeField, Header("ƒn[ƒgŠl“¾‚ÌSE")] AudioClip _heartSE;
-    [SerializeField, Header("’n–ÊÕ“Ë‚ÌSE")] AudioClip _boundSE;
-    [SerializeField, Header("’n–ÊÕ“Ë‚Ì’µ‚Ë•Ô‚è")] float _bound;
-    [SerializeField] GameObject _scoreText;
-    [Tooltip("‘O‰ñUpdate‚Ì•b”")] int _score = 0;
-    [SerializeField, Header("‘¬“xã¸Šl“¾‚ÌSE")] AudioClip _speedUpSE;
-    [SerializeField, Header("‘¬“x‰º~Šl“¾‚ÌSE")] AudioClip _speedDownSE;
+    [SerializeField, Header("ã‚³ã‚¤ãƒ³ç²å¾—æ™‚ã®SE")] AudioClip _coinSE;
+    [SerializeField, Header("ãƒãƒ¼ãƒˆç²å¾—æ™‚ã®SE")] AudioClip _heartSE;
+    [SerializeField, Header("åœ°é¢è¡çªæ™‚æ™‚ã®SE")] AudioClip _boundSE;
+    [SerializeField, Header("åœ°é¢è¡çªæ™‚ã®è·³ã­è¿”ã‚Š")] float _bound;
+    [SerializeField, Header("ScoreTextã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚µã‚¤ãƒ³ã™ã‚‹")] GameObject _scoreText;
+    [SerializeField, Header("LifeTextã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚µã‚¤ãƒ³ã™ã‚‹")] GameObject _lifeText;
+    [Tooltip("å‰å›Updateæ™‚ã®ç§’æ•°")] int _score = 0;
+    [SerializeField, Header("é€Ÿåº¦ä¸Šæ˜‡ç²å¾—æ™‚ã®SE")] AudioClip _speedUpSE;
+    [SerializeField, Header("é€Ÿåº¦ä¸‹é™ç²å¾—æ™‚ã®SE")] AudioClip _speedDownSE;
+    [SerializeField, Header("ç¾åœ¨ã®æ®‹åŸº")] public int life;
+    [Header("æ®‹åŸºã®ä¸Šé™")] int _maxLife = 3;
+    [SerializeField, Header("åå­—æ¶è¡çªæ™‚ã®SE")] AudioClip _crossSE;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +40,28 @@ public class PlayerController : MonoBehaviour
         isGame = true;
         isLowEnough = true;
         _audioSource = gameObject.GetComponent<AudioSource>();
+        life = _maxLife;
+        SetLifeText(life);
+    }
+
+    private void SetLifeText(int life)
+    {
+        string lifeHeart = ""; //æ®‹åŸºã®stringå‹â™¥ãƒ†ã‚­ã‚¹ãƒˆ
+
+        if(life == 1)
+        {
+            lifeHeart = "â™¥";
+        }
+        else if(life == 2)
+        {
+            lifeHeart = "â™¥â™¥";
+        }
+        else if(life == 3)
+        {
+            lifeHeart = "â™¥â™¥â™¥";
+        }
+
+        _lifeText.GetComponent<Text>().text = $"Life:{lifeHeart}";
     }
 
     // Update is called once per frame
@@ -90,17 +116,23 @@ public class PlayerController : MonoBehaviour
             //_heartParticle.Play();
             _audioSource.PlayOneShot(_heartSE, 1.0f);
             Destroy(other.gameObject);
+
+            if (life < _maxLife)
+            {
+                life++;
+                SetLifeText(life);
+            }
         }
         // if player collides with ground, bound
         else if (other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("°‚É“–‚½‚Á‚½");
+            Debug.Log("åºŠã«å½“ãŸã£ãŸ");
             _audioSource.PlayOneShot(_boundSE, 1.0f);
             _playerRb.AddForce(0, _bound, 0, ForceMode.Impulse);
         }
         else if (other.gameObject.CompareTag("Ceiling"))
         {
-            Debug.Log("“Vˆä‚É“–‚½‚Á‚½");
+            Debug.Log("å¤©äº•ã«å½“ãŸã£ãŸ");
             _audioSource.PlayOneShot(_boundSE, 1.0f);
             _playerRb.AddForce(0, -_bound, 0, ForceMode.Impulse);
         }
@@ -116,6 +148,13 @@ public class PlayerController : MonoBehaviour
             _audioSource.PlayOneShot(_speedDownSE, 2.0f);
             Destroy(other.gameObject);
             _moveForceR -= 500;
+        }
+        else if (other.gameObject.CompareTag("Cross")ã€€&& life > 0)
+        {
+            _audioSource.PlayOneShot(_crossSE, 1.0f);
+            Destroy(other.gameObject);
+            life--;
+            SetLifeText(life);
         }
     }
 }

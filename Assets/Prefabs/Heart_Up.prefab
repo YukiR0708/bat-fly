@@ -110,4 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af47a372c9832f40b621fa94958e19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateSpeed: 100
+  _deleteDistance: 10
