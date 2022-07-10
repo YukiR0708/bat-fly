@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody _playerRb;
     [SerializeField, Header("上下移動速度")] float _moveForceV;
-    [Tooltip("ゲーム中かどうか")] bool isGame;
+    [Tooltip("ゲーム中かどうか")] public bool isGame;
     [Tooltip("プレイヤーのy座標が十分に小さいかどうか")] bool isLowEnough;
     [Tooltip("プレイヤーのy座標")] float _playePositionY;
     [SerializeField, Header("プレイヤーのy軸移動上限")] float _upLimit;
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
             isLowEnough = false;
         }
         isLowEnough = true;
-        _scoreText.GetComponent<Text>().text = "SCORE:" + _score.ToString("");
+        _scoreText.GetComponent<Text>().text = "Score:" + _score.ToString("");
     }
 
     private void AddScore()

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         if ((int)_seconds != (int)_oldSeconds)    //　タイマー表示用UIテキストに残り時間を表示する
         {
-            _timerText.text = $"Time:{_minute.ToString("0") }:{((int)_seconds).ToString("00")}";
+            _timerText.text = $"Time:{_minute:0}:{(int)_seconds:00}";
         }
 
         _oldSeconds = _seconds;
