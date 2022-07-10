@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("ハート獲得時のSE")] AudioClip _heartSE;
     [SerializeField, Header("地面衝突時時のSE")] AudioClip _boundSE;
     [SerializeField, Header("地面衝突時の跳ね返り")] float _bound;
+    [SerializeField] GameObject _scoreText;
+    [Tooltip("前回Update時の秒数")] int _score = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             isLowEnough = true;
 
-            _playerRb.AddForce(Vector3.right * _moveForceR);
+            _playerRb.AddForce(Vector3.right * _moveForceR * Time.deltaTime);
             _mainCamera.transform.position = new Vector3(transform.position.x + _xAdjust, _yPosition, transform.position.z + _zAdjust);
 
             if (isLowEnough && Input.GetKey(KeyCode.W))
@@ -60,14 +65,22 @@ public class PlayerController : MonoBehaviour
             isLowEnough = false;
         }
         isLowEnough = true;
+        _scoreText.GetComponent<Text>().text = "SCORE:" + _score.ToString("");
     }
+
+    private void AddScore()
+    {
+        _score += 100;
+    }
+
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Coin"))
         {
-            //            _coinParticle.Play();
+            //_coinParticle.Play();
             _audioSource.PlayOneShot(_coinSE, 1.0f);
+            AddScore();
             isGame = true;
             Debug.Log("Game Over!");
             Destroy(other.gameObject);
@@ -76,7 +89,7 @@ public class PlayerController : MonoBehaviour
         // if player collides with money, fireworks
         else if (other.gameObject.CompareTag("Heart"))
         {
-            //            _heartParticle.Play();
+            //_heartParticle.Play();
             _audioSource.PlayOneShot(_heartSE, 1.0f);
             Destroy(other.gameObject);
         }
@@ -92,8 +105,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("床に当たった");
             _audioSource.PlayOneShot(_boundSE, 1.0f);
             _playerRb.AddForce(0, -_bound, 0, ForceMode.Impulse);
-
-
         }
     }
 }
