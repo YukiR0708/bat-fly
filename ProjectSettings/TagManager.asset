@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Fire
   - Ceiling
+  - SpeedUp
   layers:
   - Default
   - TransparentFX

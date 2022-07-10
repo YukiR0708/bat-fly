@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("ínñ è’ìÀéûÇÃíµÇÀï‘ÇË")] float _bound;
     [SerializeField] GameObject _scoreText;
     [Tooltip("ëOâÒUpdateéûÇÃïbêî")] int _score = 0;
-
+    [SerializeField, Header("ë¨ìxè„è∏älìæéûÇÃSE")] AudioClip _speedUpSE;
+    [SerializeField, Header("ë¨ìxâ∫ç~älìæéûÇÃSE")] AudioClip _speedDownSE;
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +53,10 @@ public class PlayerController : MonoBehaviour
             if (isLowEnough && Input.GetKey(KeyCode.W))
             {
                 _playerRb.velocity = Vector3.up * _moveForceV;
-                Debug.Log("WÇ™âüÇ≥ÇÍÇΩ");
             }
             else if (isLowEnough && Input.GetKey(KeyCode.S))
             {
                 _playerRb.velocity = Vector3.down * _moveForceV;
-                Debug.Log("SÇ™âüÇ≥ÇÍÇΩ");
             }
         }
         else
@@ -79,10 +78,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Coin"))
         {
             //_coinParticle.Play();
-            _audioSource.PlayOneShot(_coinSE, 1.0f);
+            _audioSource.PlayOneShot(_coinSE, 2.0f);
             AddScore();
             isGame = true;
-            Debug.Log("Game Over!");
             Destroy(other.gameObject);
         }
 
@@ -102,9 +100,22 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Ceiling"))
         {
-            Debug.Log("è∞Ç…ìñÇΩÇ¡ÇΩ");
+            Debug.Log("ìVà‰Ç…ìñÇΩÇ¡ÇΩ");
             _audioSource.PlayOneShot(_boundSE, 1.0f);
             _playerRb.AddForce(0, -_bound, 0, ForceMode.Impulse);
+        }
+        else if (other.gameObject.CompareTag("SpeedUp"))
+        {
+            _audioSource.PlayOneShot(_speedUpSE, 1.0f);
+            Destroy(other.gameObject);
+            _moveForceR += 500;
+        }
+
+        else if (other.gameObject.CompareTag("SpeedDown"))
+        {
+            _audioSource.PlayOneShot(_speedDownSE, 2.0f);
+            Destroy(other.gameObject);
+            _moveForceR -= 500;
         }
     }
 }
